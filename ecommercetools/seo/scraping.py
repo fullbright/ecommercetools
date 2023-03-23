@@ -133,6 +133,23 @@ def _get_paragraphs(response):
         return paragraphs
     except Exception as e:
         return
+    
+def _get_subheadings(response, heading_tag):
+    """Parse HTML and extract subheadings
+
+    Args:
+        response: HTML response from Requests-HTML
+    Returns:
+        HTML element
+    """
+
+    try:
+        headings = []
+        for heading in response.html.find(heading_tag):
+            headings.append(heading.text)
+        return headings
+    except Exception as e:
+        return
 
 
 def scrape_site(df, url='loc', verbose=False):
@@ -176,6 +193,12 @@ def scrape_site(df, url='loc', verbose=False):
                     'generator': _get_generator(r),
                     'absolute_links': _get_absolute_links(r),
                     'paragraphs': _get_paragraphs(r),
+                    'h1s': _get_subheadings(r, 'h1'),
+                    'h2s': _get_subheadings(r, 'h2'),
+                    'h3s': _get_subheadings(r, 'h3'),
+                    'h4s': _get_subheadings(r, 'h4'),
+                    'h5s': _get_subheadings(r, 'h5'),
+                    'h6s': _get_subheadings(r, 'h6'),
                 }
 
                 df_pages = df_pages.append(row, ignore_index=True)
