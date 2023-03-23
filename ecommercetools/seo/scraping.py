@@ -172,7 +172,7 @@ def scrape_site(df, url='loc', verbose=False):
         print('Preparing to scrape ' + str(pages) + ' pages. This will take approximately ' + str(round(minutes)) + ' minutes')
 
     df_pages = pd.DataFrame(columns=['url', 'title', 'description', 'canonical', 'robots', 'hreflang', 'generator',
-                                     'absolute_links', 'paragraphs'])
+                                     'absolute_links', 'paragraphs', 'h1s', 'h2s', 'h3s', 'h4s', 'h5s', 'h6s'])
 
     for index, row in df.iterrows():
 
